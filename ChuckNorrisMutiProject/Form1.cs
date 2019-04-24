@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChuckNorrisAPI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,8 +18,17 @@ namespace ChuckNorrisMutiProject
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
+            Joke joke = await ChuckNorrisClient.GetRandomJoke();
+            MessageBox.Show(joke.JokeText);
+
+        }
+
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            IEnumerable<string> categories = await ChuckNorrisClient.GetCategories();
+            comboBox1.DataSource = categories;
         }
     }
 }
